@@ -6,14 +6,20 @@ const Navbar = (props) => {
   let menu;
   if(props.username == ''){
     menu = (
-    <li>
-      <Link to="/login">Login</Link>
-    </li>
+      <ul>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/register">Register</Link>
+        </li>
+      </ul>
+    
     )
   }
   else{
     menu = (
-      <li><Link>Account</Link></li>
+      <li><Link to="/account">Account</Link></li>
     );
   }
   return (

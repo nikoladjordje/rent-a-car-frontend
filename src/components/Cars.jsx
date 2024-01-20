@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Car from "./Car";
-const Cars = () => {
+import AddVehicle from "./AddVehicle";
+const Cars = (props) => {
     const[carsList, setCarsList] = useState([])
     const[vehicleTypeList, setVehicleTypeList] = useState([])
 
@@ -31,16 +32,24 @@ const Cars = () => {
         }
 
         var content = await response.json();
+        // console.log(content);
+        var cl = [];
+        content.forEach(element => {
+            // console.log(element);
+            cl.push(element);
+        });
+        // setCarsList(content);
+        // console.log('carsList:'+content)
         if(minPrice != '')
-            content = content.filter(car => car.attributes.dailyPrice >= minPrice);
+            cl = cl.filter(car => car.dailyPrice >= minPrice);
         if(maxPrice != '')
-            content = content.filter(car => car.attributes.dailyPrice <= maxPrice);
+            cl = cl.filter(car => car.dailyPrice <= maxPrice);
         if(selectedVehicleType != '')
-            content = content.filter(car => car.attributes.vehicleType == selectedVehicleType);
-        const filteredCars = availability ? content.filter(car => car.attributes.availability) : content;
+            cl = cl.filter(car => car.vehicleType == selectedVehicleType);
+            cl  = availability ? cl.filter(car => car.availability) : cl;
+        setCarsList(cl);
 
-        setCarsList(filteredCars);
-        console.log(filteredCars)
+        // setCarsList(filteredCars);
     };
 
     useEffect(() => {
@@ -58,7 +67,7 @@ const Cars = () => {
     
             const content = await response.json();
             setVehicleTypeList(content);
-            console.log(content)
+            // console.log(content)
         };
     
         fetchCars();
@@ -71,7 +80,6 @@ const Cars = () => {
     
     return(
         <>
-
         <div>
             <div className="filter">
                 <div className="filter-by-vehicle-type">
@@ -106,7 +114,6 @@ const Cars = () => {
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
                     />
-                    <button onClick={handleFilterByPrice}>Apply</button>
                 </div>
                 <div>
                     <label htmlFor="availability">Show only available:</label>
@@ -119,7 +126,7 @@ const Cars = () => {
                 </div>
             </div>
             {carsList.map(car => {
-                return <Car key={car.vehicleId} attributes={car.attributes}/>
+                return <Car key={car.id} car={car}/>
                 // <div>{car.vehicleId}</div>   key={car.vehicleId}
             })}
         </div>
