@@ -16,7 +16,7 @@ const Car = (props) => {
         }
         else{
             console.log('bravo');
-            const response = await fetch('https://localhost:7205/' + `api/Vehicle/VehicleReservations?vehicleId=${props.car.id}&pickupDate=${pickupDate}&returnDate=${returnDate}`, {
+            const response = await fetch('https://localhost:7205/' + `api/Vehicle/VehicleReservations?userId=${props.userId}&vehicleId=${props.car.id}&pickupDate=${pickupDate}&returnDate=${returnDate}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

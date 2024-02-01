@@ -17,9 +17,9 @@ const Reservations = (props) => {
         }
         const content = await response.json();
         var rl = [];
-        console.log(content);
+        // console.log(content);
         content.forEach(element => {
-            console.log(element);
+            // console.log(element);
             rl.push(element);
         });
         setReservationList(rl);
@@ -36,11 +36,13 @@ const Reservations = (props) => {
     return(
         <>
             <div>
+            <h1>Reservations</h1>
             {reservationList.map(reservation => {
                 return <Reservation key={reservation.id} reservation={reservation} userId={props.userId}/>
                 // <div>{car.vehicleId}</div>   key={car.vehicleId}
             })}
             </div>
+            <hr />
         </>
     );
 }

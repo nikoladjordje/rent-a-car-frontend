@@ -18,11 +18,11 @@ const Reservation = (props) => {
         }
 
         const a = await response2.json();
-        console.log("asd");
-        console.log(a[0]);
+        // console.log("asd");
+        // console.log(a);
         
-        setVehicle(a[0]);
-        console.log('reservID:'+props.reservation.id);
+        setVehicle(a);
+        // console.log('reservID:'+props.reservation.id);
         console.log(vehicle);
     }
 
@@ -47,41 +47,34 @@ const Reservation = (props) => {
         console.log(a);
 
         await ConnectReviewToUser(a);
-        await ConnectReviewToVehicle(a);
+        // await ConnectReviewToVehicle(a);
 
     }
 
     const ConnectReviewToUser = async (reviewId) => {
-        const response = await fetch(`https://localhost:7205/api/Review/GiveReview?userId=${props.userId}&reviewId=${reviewId}`, {
+        const response2 = await fetch(`https://localhost:7205/api/Review/GiveReview?userId=${props.userId}&reviewId=${reviewId}&vehicleId=${vehicle.id}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'}
         });
 
-        if (!response.ok) {
+        if (!response2.ok) {
           console.error('Failed to connect user to review');
           return;
         }
-    }
-
-    const ConnectReviewToVehicle = async (reviewId) => {
-        const response = await fetch(`https://localhost:7205/api/Vehicle/VehicleReviews?vehicleId=${vehicle.id}&reviewId=${reviewId}`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        });
-
-        if (!response.ok) {
-          console.error('Failed to connect vehicle to review');
-          return;
+        else{
+            console.log('review to user');
+            console.log(props.userId);
+            console.log(reviewId);
         }
     }
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         // console.log(rating + comment);
         if(comment == '')
             console.log('comment is empty!');
         else{
-            CreateReview();
+            await CreateReview();
         }
     };
     

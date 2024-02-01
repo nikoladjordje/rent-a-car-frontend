@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AddVehicle from "../components/AddVehicle";
 import Reservations from "../components/Reservations";
+import Reviews from "../components/Reviews";
 const Account = (props) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -75,6 +76,7 @@ const Account = (props) => {
 
           <AddVehicle userId={props.userId}/>
           <Reservations userId={props.userId}/>
+          <Reviews userId={props.userId}/>
         </div>
     );
 }

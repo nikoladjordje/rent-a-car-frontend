@@ -16,7 +16,7 @@ const AddVehicle = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('https://localhost:7205/' + 'api/Vehicle', {
+    const response = await fetch('https://localhost:7205/' + 'api/Vehicle/AddVehicle', {
       method: 'POST',
       headers: {'Content-Type': 'application/json',
       'Accept': 'application/json' },
